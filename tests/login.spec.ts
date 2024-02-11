@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { Appsettings } from '../appsettings';
+import { Appsettings } from '../appsettings2';
 
 test.describe('Login tests.', () => {
 

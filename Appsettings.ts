@@ -11,7 +11,7 @@ export class Appsettings {
     this.password = password;
   }
 
-  static loadFromFile(filePath: string): Appsettings | null {
+  static loadFromFile(filePath: string): Appsettings {
     try {
       const fileContents = fs.readFileSync(filePath, 'utf-8');
       const jsonContent = JSON.parse(fileContents);
@@ -25,7 +25,13 @@ export class Appsettings {
       return appSettings;
     } catch (error) {
       console.error('Error loading appsettings from file:', error);
-      return null;
+      const appSettings = new Appsettings(
+        'Loading appsettings from file failed.',
+        'Loading appsettings from file failed.',
+        'Loading appsettings from file failed.'
+      );
+
+      return appSettings;
     }
   }
 }

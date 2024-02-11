@@ -1,11 +1,44 @@
 # playwright-e-sim
 
-# the awsome jurney with github begin
+- base page https://primera.e-sim.org/
 
-# testpage https://demo-bank.vercel.app/
-# my testpage:
-# 
+## npm - przydatne komendy
 
-# npm init playwright@latest
+Niektóre z nich warto umieści w `package.json` scrits:
+- `npm init playwright@latest` utworzenie(inicjalizacja) projektu playwright (gdy tworzymy projekt)
+- `npm install` aby zainstalować zależności
+- `npx playwright install` aby pobrać aktualne przeglądarki
+- `npx playwright test --headed` uruchamianie testów
+- `npx playwright codegen https://primera.e-sim.org/` odpalenie nagrywarki - nowa wersja ma nawet asercje
+- `npx playwright show-report`
 
-npx playwright codegen https://primera.e-sim.org/
+## Kurs jaktestować.pl
+
+- https://jaktestowac.pl/course/playwright-wprowadzenie/
+- https://github.com/jaktestowac/playwright_automatyzacja_wprowadzenie/
+
+## Visual Studio Code
+
+- Autosave: in File -> Auto Save
+- Timeline: file context menu -> Open Timeline
+- Formatting: editor -> context menu -> Format Document
+
+## Playwright Config modifications
+
+- config file `playwright.config.ts`
+
+## Playwright snippets
+- test:
+    ```javascript
+    test('test description', async ({ page }) => {
+    
+    });
+    ```
+- describe:
+    ```javascript
+     test.describe('Group description', () => {
+
+     });
+    ```
+- running one test: `test.only`
+- test.only

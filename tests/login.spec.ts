@@ -8,9 +8,7 @@ test('Login with correct credentials.', async ({ page }) => {
 
   await page.goto('https://primera.e-sim.org/');
   await page.locator('#navigateToLogin').click();
-  await page.getByPlaceholder('login', { exact: true }).click();
   await page.getByPlaceholder('login', { exact: true }).fill(appsettings.login);
-  await page.getByPlaceholder('password', { exact: true }).click();
   await page.getByPlaceholder('password', { exact: true }).fill(appsettings.password);
 
   await page.getByRole('button', { name: 'LOGIN' }).click();
@@ -49,7 +47,6 @@ test.skip('Login without password.', async ({ page }) => {
 
   await page.goto('https://primera.e-sim.org/');
   await page.locator('#navigateToLogin').click();
-  await page.getByPlaceholder('login', { exact: true }).click();
   await page.getByPlaceholder('login', { exact: true }).fill(appsettings.login);
 
   await page.getByRole('button', { name: 'LOGIN' }).click();
@@ -67,9 +64,7 @@ test.skip('Login with incorrect password.', async ({ page }) => {
 
   await page.goto('https://primera.e-sim.org/');
   await page.locator('#navigateToLogin').click();
-  await page.getByPlaceholder('login', { exact: true }).click();
   await page.getByPlaceholder('login', { exact: true }).fill(appsettings.login);
-  await page.getByPlaceholder('password', { exact: true }).click();
   await page.getByPlaceholder('password', { exact: true }).fill('incorrect password');
 
   await page.getByRole('button', { name: 'LOGIN' }).click();

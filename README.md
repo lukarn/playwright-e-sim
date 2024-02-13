@@ -28,17 +28,18 @@ Niektóre z nich warto umieści w `package.json` scrits:
 - config file `playwright.config.ts`
 
 ## Playwright snippets
-- test:
-    ```javascript
-    test('test description', async ({ page }) => {
-    
-    });
-    ```
 - describe:
     ```javascript
+     import { test, expect } from '@playwright/test';   
+
      test.describe('Group description', () => {
+
+            test('test description', async ({ page }) => {
+    
+            });
 
      });
     ```
 - running one test: `test.only`
-- test.only
+- `test.skip`
+- `await page.waitForTimeout(5000);`

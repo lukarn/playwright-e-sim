@@ -22,6 +22,7 @@ Niektóre z nich warto umieści w `package.json` scrits:
 - Autosave: in File -> Auto Save
 - Timeline: file context menu -> Open Timeline
 - Formatting: editor -> context menu -> Format Document
+- GitLens
 
 ## Playwright Config modifications
 

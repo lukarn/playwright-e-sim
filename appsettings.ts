@@ -19,7 +19,7 @@ export class Appsettings {
       const appSettings = new Appsettings(
         jsonContent.baseUrl,
         jsonContent.login,
-        jsonContent.password
+        jsonContent.password,
       );
 
       return appSettings;
@@ -28,7 +28,7 @@ export class Appsettings {
       const appSettings = new Appsettings(
         'Loading appsettings from file failed.',
         'Loading appsettings from file failed.',
-        'Loading appsettings from file failed.'
+        'Loading appsettings from file failed.',
       );
 
       return appSettings;

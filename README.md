@@ -5,6 +5,7 @@
 ## npm - przydatne komendy
 
 Niektóre z nich warto umieści w `package.json` scrits:
+
 - `npm init playwright@latest` utworzenie(inicjalizacja) projektu playwright (gdy tworzymy projekt)
 - `npm install` aby zainstalować zależności
 - `npx playwright install` aby pobrać aktualne przeglądarki
@@ -22,25 +23,58 @@ Niektóre z nich warto umieści w `package.json` scrits:
 - Autosave: in File -> Auto Save
 - Timeline: file context menu -> Open Timeline
 - Formatting: editor -> context menu -> Format Document
-- GitLens
+- Extensions: GitLens, Prettier
 
-## Playwright Config modifications
+## Playwright Config modifications and maintanance
 
 - config file `playwright.config.ts`
+- check if Playwright should be updated  
+  `npm outdated @playwright/test`
+- update Playwright  
+  `npm i @playwright/test`
+- update browsers  
+  `npx playwright install`
+- verify Playwright version  
+  `npx @playwright/test --version`
 
 ## Playwright snippets
+
 - describe:
-    ```javascript
-     import { test, expect } from '@playwright/test';   
 
-     test.describe('Group description', () => {
+  ```javascript
+  import { test, expect } from '@playwright/test';
 
-            test('test description', async ({ page }) => {
-    
-            });
+  test.describe('Group description', () => {
+    test('test description', async ({ page }) => {});
+  });
+  ```
 
-     });
-    ```
 - running one test: `test.only`
 - `test.skip`
 - `await page.waitForTimeout(5000);`
+
+## Prettier
+
+- install Prettier  
+  `npm install --save-dev --save-exact prettier`
+- configure Prettier
+
+  - exlude files in `.prettierignore`
+
+    ```
+    package-lock.json
+    playwright-report
+    test-results
+
+    ```
+
+  - set rules in `.prettierrc.json`
+    ```
+    {
+        "singleQuote": true
+    }
+    ```
+
+- run Prettier  
+  `npx prettier --write .`
+- additionaly you can install VSC extension: **Prettier**

@@ -71,7 +71,8 @@ Niektóre z nich warto umieści w `package.json` scrits:
   - set rules in `.prettierrc.json`
     ```
     {
-        "singleQuote": true
+        "singleQuote": true,
+        "endOfLine": "auto"
     }
     ```
 

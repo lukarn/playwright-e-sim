@@ -5,7 +5,7 @@ test.describe('Login tests.', () => {
   // Arrange
   const appsettings = Appsettings.loadFromFile('appsettings.local.json');
 
-  test.only('Login with correct credentials.', async ({ page }) => {
+  test('Login with correct credentials.', async ({ page }) => {
     // Act
     await page.goto(appsettings.baseUrl);
     await page.locator('#navigateToLogin').click();

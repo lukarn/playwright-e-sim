@@ -5,10 +5,14 @@ test.describe('Login tests.', () => {
   // Arrange
   const appsettings = Appsettings.loadFromFile('appsettings.local.json');
 
-  test('Login with correct credentials.', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     // Act
     await page.goto(appsettings.baseUrl);
     await page.locator('#navigateToLogin').click();
+  });
+
+  test('Login with correct credentials.', async ({ page }) => {
+    // Act
     await page
       .getByPlaceholder('login', { exact: true })
       .fill(appsettings.login);
@@ -25,9 +29,6 @@ test.describe('Login tests.', () => {
 
   test.skip('Login without typing credentials.', async ({ page }) => {
     // Act
-    await page.goto(appsettings.baseUrl);
-    await page.locator('#navigateToLogin').click();
-
     await page.getByRole('button', { name: 'LOGIN' }).click();
 
     // Assert
@@ -47,8 +48,6 @@ test.describe('Login tests.', () => {
 
   test.skip('Login without password.', async ({ page }) => {
     // Act
-    await page.goto(appsettings.baseUrl);
-    await page.locator('#navigateToLogin').click();
     await page
       .getByPlaceholder('login', { exact: true })
       .fill(appsettings.login);
@@ -72,8 +71,6 @@ test.describe('Login tests.', () => {
 
   test.skip('Login with incorrect password.', async ({ page }) => {
     // Act
-    await page.goto(appsettings.baseUrl);
-    await page.locator('#navigateToLogin').click();
     await page
       .getByPlaceholder('login', { exact: true })
       .fill(appsettings.login);

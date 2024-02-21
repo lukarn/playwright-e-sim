@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
+import { StartPage } from '../pages/start.page';
 
 test.describe('Login tests.', () => {
   // Arrange
@@ -8,7 +9,10 @@ test.describe('Login tests.', () => {
   test.beforeEach(async ({ page }) => {
     // Act
     await page.goto(appsettings.baseUrl);
-    await page.locator('#navigateToLogin').click();
+
+    const startPage = new StartPage(page);
+    startPage.clickLoginButton();
+    // await page.locator('#navigateToLogin').click();
   });
 
   test('Login with correct credentials.', async ({ page }) => {

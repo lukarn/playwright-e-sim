@@ -23,7 +23,8 @@ Niektóre z nich warto umieści w `package.json` scrits:
 - Autosave: in File -> Auto Save
 - Timeline: file context menu -> Open Timeline
 - Formatting: editor -> context menu -> Format Document
-- Extensions: GitLens, Prettier
+- Extensions: GitLens, Prettier, Playwright
+- Ctrl + Shift + P, `Open user settings` + Save -> Format on Save
 
 ## Playwright Config modifications and maintanance
 

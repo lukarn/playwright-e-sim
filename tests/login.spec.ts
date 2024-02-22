@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
-import { StartPage } from '../pages/start.page';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Login tests.', () => {
   // Arrange
@@ -10,21 +10,17 @@ test.describe('Login tests.', () => {
     // Act
     await page.goto(appsettings.baseUrl);
 
-    const startPage = new StartPage(page);
-    startPage.clickLoginButton();
-    // await page.locator('#navigateToLogin').click();
+    const loginPage = new LoginPage(page);
+    await loginPage.clickLoginNavigateButton();
   });
 
   test('Login with correct credentials.', async ({ page }) => {
     // Act
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-    await page
-      .getByPlaceholder('password', { exact: true })
-      .fill(appsettings.password);
+    const loginPage = new LoginPage(page);
+    await loginPage.setLoginInput(appsettings.login);
+    await loginPage.setPasswordInput(appsettings.password);
+    await loginPage.clickLoginConfirmButton();
 
-    await page.getByRole('button', { name: 'LOGIN' }).click();
     await page.locator('#userAvatar').getByRole('link').click();
 
     // Assert
@@ -33,7 +29,8 @@ test.describe('Login tests.', () => {
 
   test.skip('Login without typing credentials.', async ({ page }) => {
     // Act
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+    const loginPage = new LoginPage(page);
+    await loginPage.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(
@@ -52,11 +49,9 @@ test.describe('Login tests.', () => {
 
   test.skip('Login without password.', async ({ page }) => {
     // Act
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+    const loginPage = new LoginPage(page);
+    await loginPage.setLoginInput(appsettings.login);
+    await loginPage.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(
@@ -75,14 +70,10 @@ test.describe('Login tests.', () => {
 
   test.skip('Login with incorrect password.', async ({ page }) => {
     // Act
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-    await page
-      .getByPlaceholder('password', { exact: true })
-      .fill('incorrect password');
-
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+    const loginPage = new LoginPage(page);
+    await loginPage.setLoginInput(appsettings.login);
+    await loginPage.setPasswordInput('incorrect password');
+    await loginPage.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(

@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Daily tasks tests.', () => {
   test.beforeEach(async ({ page }) => {
@@ -8,14 +9,10 @@ test.describe('Daily tasks tests.', () => {
 
     // Act
     await page.goto(appsettings.baseUrl);
-    await page.locator('#navigateToLogin').click();
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-    await page
-      .getByPlaceholder('password', { exact: true })
-      .fill(appsettings.password);
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+
+    const loginPage = new LoginPage(page);
+    await loginPage.clickLoginNavigateButton();
+    await loginPage.fillLoginForm(appsettings.login, appsettings.password);
   });
 
   test('Train.', async ({ page }) => {

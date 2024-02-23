@@ -11,6 +11,10 @@ export class BaseActions {
     await locator.fill(text);
   }
 
+  async getElementText(locator: Locator): Promise<string | null> {
+    return await locator.textContent();
+  }
+
   // protected getByXpath(xpathSelector: string): Locator {
   //   return this.page.locator('xpath=' + xpathSelector);
   // }

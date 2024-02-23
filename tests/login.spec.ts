@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
 import { LoginPage } from '../pages/login.page';
+import { StartPage } from '../pages/start.page';
 
 test.describe('Login tests.', () => {
   // Arrange
@@ -21,10 +22,11 @@ test.describe('Login tests.', () => {
     await loginPage.setPasswordInput(appsettings.password);
     await loginPage.clickLoginConfirmButton();
 
-    await page.locator('#userAvatar').getByRole('link').click();
+    const startPage = new StartPage(page);
+    await startPage.clickUserAvatarButton();
 
     // Assert
-    await expect(page.locator('#contentDrop')).toContainText(appsettings.login);
+    expect(await startPage.getUserLoginOnAvatarText()).toContain(appsettings.login);
   });
 
   test.skip('Login without typing credentials.', async ({ page }) => {

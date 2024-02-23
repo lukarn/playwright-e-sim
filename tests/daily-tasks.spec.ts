@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
 import { LoginPage } from '../pages/login.page';
+import { StartPage } from '../pages/start.page';
 
 test.describe('Daily tasks tests.', () => {
   test.beforeEach(async ({ page }) => {
@@ -17,7 +18,8 @@ test.describe('Daily tasks tests.', () => {
 
   test('Train.', async ({ page }) => {
     // Act
-    await page.locator('li#taskButtonTrain').click();
+    const startPage = new StartPage(page);
+    await startPage.dailyTasksSideMenuComponent.clickTrainButton();
     await page.locator('button#trainButton').click();
 
     // Assert
@@ -32,7 +34,8 @@ test.describe('Daily tasks tests.', () => {
 
   test('Work.', async ({ page }) => {
     // Act
-    await page.locator('li#taskButtonWork').click();
+    const startPage = new StartPage(page);
+    await startPage.dailyTasksSideMenuComponent.clickWorkButton();
     await page.locator('button#workButton').click();
 
     // Assert

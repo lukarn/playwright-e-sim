@@ -2,9 +2,11 @@ import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
 import { LoginPage } from '../pages/login.page';
 import { StartPage } from '../pages/start.page';
+import { WorkPage } from '../pages/work.page';
 
 test.describe('Daily tasks tests.', () => {
   let startPage: StartPage;
+  let workPage: WorkPage;
 
   test.beforeEach(async ({ page }) => {
     // Load env. settings
@@ -22,6 +24,7 @@ test.describe('Daily tasks tests.', () => {
 
     // Create pages for test cases
     startPage = new StartPage(page);
+    workPage = new WorkPage(page);
   });
 
   test('Train.', async ({ page }) => {
@@ -39,16 +42,20 @@ test.describe('Daily tasks tests.', () => {
     ).toContainText(':');
   });
 
-  test('Work.', async ({ page }) => {
+  test('Work.', async () => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickWorkButton();
-    await page.locator('button#workButton').click();
+    await workPage.workPageButtonsComponent.clickWorkButton();
 
     // Assert
-    await expect(page.locator('div.workButtonContainer')).toBeVisible();
-    await expect(page.locator('table#productionReportTable')).toBeVisible();
-    await expect(
-      page.locator('div.workButtonContainer span.timeCountdown'),
-    ).toContainText(':');
+    expect(
+      await workPage.workPageElementsComponent.workButtonContainerIsPresent(),
+    ).toBeTruthy();
+    expect(
+      await workPage.workPageElementsComponent.productionReportTableIsPresent(),
+    ).toBeTruthy();
+    expect(
+      await workPage.workPageElementsComponent.getTimeCountDownText(),
+    ).toContain(':');
   });
 });

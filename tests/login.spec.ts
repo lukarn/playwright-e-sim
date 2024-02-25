@@ -23,10 +23,10 @@ test.describe('Login tests.', () => {
     await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     const startPage = new StartPage(page);
-    await startPage.clickUserAvatarButton();
+    await startPage.userAvatarComponent.clickUserAvatarButton();
 
     // Assert
-    expect(await startPage.getUserLoginOnAvatarText()).toContain(
+    expect(await startPage.userAvatarComponent.getUserLoginOnAvatarText()).toContain(
       appsettings.login,
     );
   });

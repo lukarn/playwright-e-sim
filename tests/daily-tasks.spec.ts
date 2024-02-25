@@ -4,21 +4,28 @@ import { LoginPage } from '../pages/login.page';
 import { StartPage } from '../pages/start.page';
 
 test.describe('Daily tasks tests.', () => {
+  let startPage: StartPage;
+
   test.beforeEach(async ({ page }) => {
-    // Arrange
+    // Load env. settings
     const appsettings = Appsettings.loadFromFile('appsettings.local.json');
 
-    // Act
+    // Login to the app
     await page.goto(appsettings.baseUrl);
 
     const loginPage = new LoginPage(page);
-    await loginPage.clickLoginNavigateButton();
-    await loginPage.fillLoginForm(appsettings.login, appsettings.password);
+    await loginPage.loginPageButtonsComponent.clickLoginNavigateButton();
+    await loginPage.loginFormComponent.fillLoginForm(
+      appsettings.login,
+      appsettings.password,
+    );
+
+    // Create pages for test cases
+    startPage = new StartPage(page);
   });
 
   test('Train.', async ({ page }) => {
     // Act
-    const startPage = new StartPage(page);
     await startPage.dailyTasksSideMenuComponent.clickTrainButton();
     await page.locator('button#trainButton').click();
 
@@ -34,7 +41,6 @@ test.describe('Daily tasks tests.', () => {
 
   test('Work.', async ({ page }) => {
     // Act
-    const startPage = new StartPage(page);
     await startPage.dailyTasksSideMenuComponent.clickWorkButton();
     await page.locator('button#workButton').click();
 

@@ -6,33 +6,34 @@ import { StartPage } from '../pages/start.page';
 test.describe('Login tests.', () => {
   // Arrange
   const appsettings = Appsettings.loadFromFile('appsettings.local.json');
+  let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
     // Act
     await page.goto(appsettings.baseUrl);
 
-    const loginPage = new LoginPage(page);
-    await loginPage.clickLoginNavigateButton();
+    loginPage = new LoginPage(page);
+    await loginPage.loginPageButtonsComponent.clickLoginNavigateButton();
   });
 
   test('Login with correct credentials.', async ({ page }) => {
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.setLoginInput(appsettings.login);
-    await loginPage.setPasswordInput(appsettings.password);
-    await loginPage.clickLoginConfirmButton();
+    await loginPage.loginFormComponent.setLoginInput(appsettings.login);
+    await loginPage.loginFormComponent.setPasswordInput(appsettings.password);
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     const startPage = new StartPage(page);
     await startPage.clickUserAvatarButton();
 
     // Assert
-    expect(await startPage.getUserLoginOnAvatarText()).toContain(appsettings.login);
+    expect(await startPage.getUserLoginOnAvatarText()).toContain(
+      appsettings.login,
+    );
   });
 
   test.skip('Login without typing credentials.', async ({ page }) => {
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.clickLoginConfirmButton();
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(
@@ -51,9 +52,8 @@ test.describe('Login tests.', () => {
 
   test.skip('Login without password.', async ({ page }) => {
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.setLoginInput(appsettings.login);
-    await loginPage.clickLoginConfirmButton();
+    await loginPage.loginFormComponent.setLoginInput(appsettings.login);
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(
@@ -72,10 +72,9 @@ test.describe('Login tests.', () => {
 
   test.skip('Login with incorrect password.', async ({ page }) => {
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.setLoginInput(appsettings.login);
-    await loginPage.setPasswordInput('incorrect password');
-    await loginPage.clickLoginConfirmButton();
+    await loginPage.loginFormComponent.setLoginInput(appsettings.login);
+    await loginPage.loginFormComponent.setPasswordInput('incorrect password');
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(

@@ -3,10 +3,12 @@ import { Appsettings } from '../appsettings';
 import { LoginPage } from '../pages/login.page';
 import { StartPage } from '../pages/start.page';
 import { WorkPage } from '../pages/work.page';
+import { TrainPage } from '../pages/train.page';
 
 test.describe('Daily tasks tests.', () => {
   let startPage: StartPage;
   let workPage: WorkPage;
+  let trainPage: TrainPage;
 
   test.beforeEach(async ({ page }) => {
     // Load env. settings
@@ -25,24 +27,27 @@ test.describe('Daily tasks tests.', () => {
     // Create pages for test cases
     startPage = new StartPage(page);
     workPage = new WorkPage(page);
+    trainPage = new TrainPage(page);
   });
 
   test('Train.', async ({ page }) => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickTrainButton();
-    await page.locator('button#trainButton').click();
+    await trainPage.trainPageButtonsComponent.clickTrainButton();
 
     // Assert
-    await expect(page.locator('div.mobileMilitaryStatsWrapper')).toBeVisible();
-    await expect(
-      page.locator('div.mobileMilitaryStatsWrapper div.mobileNotify'),
-    ).toContainText('+');
-    await expect(
-      page.locator('div.mobileMilitaryStatsWrapper span.timeCountdown'),
-    ).toContainText(':');
+    expect(
+      await trainPage.trainPageElementsComponent.militaryStatsWrapperIsPresent(),
+    ).toBeTruthy();
+    expect(
+      await trainPage.trainPageElementsComponent.getMobileNotifyText(),
+    ).toContain('+');
+    expect(
+      await trainPage.trainPageElementsComponent.getTimeCountDownText(),
+    ).toContain(':');
   });
 
-  test('Work.', async () => {
+  test('Work.', async ({ page }) => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickWorkButton();
     await workPage.workPageButtonsComponent.clickWorkButton();

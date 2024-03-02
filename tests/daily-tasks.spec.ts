@@ -35,16 +35,15 @@ test.describe('Daily tasks tests.', () => {
     await startPage.dailyTasksSideMenuComponent.clickTrainButton();
     await trainPage.trainPageButtonsComponent.clickTrainButton();
 
-    // Assert
-    expect(
-      await trainPage.trainPageElementsComponent.militaryStatsWrapperIsPresent(),
-    ).toBeTruthy();
-    expect(
-      await trainPage.trainPageElementsComponent.getMobileNotifyText(),
-    ).toContain('+');
-    expect(
-      await trainPage.trainPageElementsComponent.getTimeCountDownText(),
-    ).toContain(':');
+    await expect(
+      trainPage.trainPageElementsComponent.elements.militaryStatsWrapper,
+    ).toBeVisible();
+    await expect(
+      trainPage.trainPageElementsComponent.elements.mobileNotify,
+    ).toContainText('+');
+    await expect(
+      trainPage.trainPageElementsComponent.elements.timeCountDown,
+    ).toContainText(':');
   });
 
   test('Work.', async ({ page }) => {
@@ -52,15 +51,14 @@ test.describe('Daily tasks tests.', () => {
     await startPage.dailyTasksSideMenuComponent.clickWorkButton();
     await workPage.workPageButtonsComponent.clickWorkButton();
 
-    // Assert
-    expect(
-      await workPage.workPageElementsComponent.workButtonContainerIsPresent(),
-    ).toBeTruthy();
-    expect(
-      await workPage.workPageElementsComponent.productionReportTableIsPresent(),
-    ).toBeTruthy();
-    expect(
-      await workPage.workPageElementsComponent.getTimeCountDownText(),
-    ).toContain(':');
+    await expect(
+      workPage.workPageElementsComponent.elements.workButtonContainer,
+    ).toBeVisible();
+    await expect(
+      workPage.workPageElementsComponent.elements.productionReportTable,
+    ).toBeVisible();
+    await expect(
+      workPage.workPageElementsComponent.elements.workButtonContainer,
+    ).toContainText(':');
   });
 });

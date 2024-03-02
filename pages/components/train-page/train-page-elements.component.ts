@@ -1,10 +1,7 @@
 import { Locator, Page } from '@playwright/test';
-import { BaseActions } from '../../actions/base.actions';
 
 export class TrainPageElementsComponent {
-  private actions: BaseActions;
-
-  private elements: {
+  elements: {
     militaryStatsWrapper: Locator;
     mobileNotify: Locator;
     timeCountDown: Locator;
@@ -12,7 +9,6 @@ export class TrainPageElementsComponent {
 
   constructor(protected page: Page) {
     this.page = page;
-    this.actions = new BaseActions(page);
 
     this.elements = {
       militaryStatsWrapper: this.page.locator('div.mobileMilitaryStatsWrapper'),
@@ -23,19 +19,5 @@ export class TrainPageElementsComponent {
         'div.mobileMilitaryStatsWrapper span.timeCountdown',
       ),
     };
-  }
-
-  async militaryStatsWrapperIsPresent(): Promise<boolean> {
-    return await this.actions.isElementPresent(
-      this.elements.militaryStatsWrapper,
-    );
-  }
-
-  async getMobileNotifyText(): Promise<string | null> {
-    return await this.actions.getElementText(this.elements.mobileNotify);
-  }
-
-  async getTimeCountDownText(): Promise<string | null> {
-    return await this.actions.getElementText(this.elements.timeCountDown);
   }
 }

@@ -30,35 +30,35 @@ test.describe('Daily tasks tests.', () => {
     trainPage = new TrainPage(page);
   });
 
-  test('Train.', async ({ page }) => {
+  test('Train.', async () => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickTrainButton();
     await trainPage.trainPageButtonsComponent.clickTrainButton();
 
     await expect(
-      trainPage.trainPageElementsComponent.elements.militaryStatsWrapper,
+      trainPage.trainPageElementsComponent.militaryStatsWrapper,
     ).toBeVisible();
     await expect(
-      trainPage.trainPageElementsComponent.elements.mobileNotify,
+      trainPage.trainPageElementsComponent.mobileNotify,
     ).toContainText('+');
     await expect(
-      trainPage.trainPageElementsComponent.elements.timeCountDown,
+      trainPage.trainPageElementsComponent.timeCountDown,
     ).toContainText(':');
   });
 
-  test('Work.', async ({ page }) => {
+  test('Work.', async () => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickWorkButton();
     await workPage.workPageButtonsComponent.clickWorkButton();
 
     await expect(
-      workPage.workPageElementsComponent.elements.workButtonContainer,
+      workPage.workPageElementsComponent.workButtonContainer,
     ).toBeVisible();
     await expect(
-      workPage.workPageElementsComponent.elements.productionReportTable,
+      workPage.workPageElementsComponent.productionReportTable,
     ).toBeVisible();
     await expect(
-      workPage.workPageElementsComponent.elements.workButtonContainer,
+      workPage.workPageElementsComponent.workButtonContainer,
     ).toContainText(':');
   });
 });

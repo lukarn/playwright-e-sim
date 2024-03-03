@@ -5,7 +5,7 @@ import { StartPage } from '../pages/start.page';
 
 test.describe('Login tests.', () => {
   // Arrange
-  const appsettings = Appsettings.loadFromFile('appsettings.local.json');
+  const appsettings = Appsettings.loadFromFile('appsettings.json');
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
@@ -26,9 +26,9 @@ test.describe('Login tests.', () => {
     await startPage.userAvatarComponent.clickUserAvatarButton();
 
     // Assert
-    expect(await startPage.userAvatarComponent.getUserLoginOnAvatarText()).toContain(
-      appsettings.login,
-    );
+    expect(
+      await startPage.userAvatarComponent.getUserLoginOnAvatarText(),
+    ).toContain(appsettings.login);
   });
 
   test.skip('Login without typing credentials.', async ({ page }) => {

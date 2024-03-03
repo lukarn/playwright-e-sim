@@ -12,7 +12,7 @@ test.describe('Daily tasks tests.', () => {
 
   test.beforeEach(async ({ page }) => {
     // Load env. settings
-    const appsettings = Appsettings.loadFromFile('appsettings.local.json');
+    const appsettings = Appsettings.loadFromFile('appsettings.json');
 
     // Login to the app
     await page.goto(appsettings.baseUrl);

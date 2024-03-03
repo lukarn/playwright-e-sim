@@ -1,35 +1,39 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
+import { LoginPage } from '../pages/login.page';
+import { StartPage } from '../pages/start.page';
 
 test.describe('Login tests.', () => {
   // Arrange
-  const appsettings = Appsettings.loadFromFile('appsettings.local.json');
+  const appsettings = Appsettings.loadFromFile('appsettings.json');
+  let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
     // Act
     await page.goto(appsettings.baseUrl);
-    await page.locator('#navigateToLogin').click();
+
+    loginPage = new LoginPage(page);
+    await loginPage.loginPageButtonsComponent.clickLoginNavigateButton();
   });
 
   test('Login with correct credentials.', async ({ page }) => {
     // Act
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-    await page
-      .getByPlaceholder('password', { exact: true })
-      .fill(appsettings.password);
+    await loginPage.loginFormComponent.setLoginInput(appsettings.login);
+    await loginPage.loginFormComponent.setPasswordInput(appsettings.password);
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
-    await page.getByRole('button', { name: 'LOGIN' }).click();
-    await page.locator('#userAvatar').getByRole('link').click();
+    const startPage = new StartPage(page);
+    await startPage.userAvatarComponent.clickUserAvatarButton();
 
     // Assert
-    await expect(page.locator('#contentDrop')).toContainText(appsettings.login);
+    expect(
+      await startPage.userAvatarComponent.getUserLoginOnAvatarText(),
+    ).toContain(appsettings.login);
   });
 
   test.skip('Login without typing credentials.', async ({ page }) => {
     // Act
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(
@@ -48,11 +52,8 @@ test.describe('Login tests.', () => {
 
   test.skip('Login without password.', async ({ page }) => {
     // Act
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+    await loginPage.loginFormComponent.setLoginInput(appsettings.login);
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(
@@ -71,14 +72,9 @@ test.describe('Login tests.', () => {
 
   test.skip('Login with incorrect password.', async ({ page }) => {
     // Act
-    await page
-      .getByPlaceholder('login', { exact: true })
-      .fill(appsettings.login);
-    await page
-      .getByPlaceholder('password', { exact: true })
-      .fill('incorrect password');
-
-    await page.getByRole('button', { name: 'LOGIN' }).click();
+    await loginPage.loginFormComponent.setLoginInput(appsettings.login);
+    await loginPage.loginFormComponent.setPasswordInput('incorrect password');
+    await loginPage.loginFormComponent.clickLoginConfirmButton();
 
     // Assert
     await expect(page.locator('#main-wrapper')).toContainText(

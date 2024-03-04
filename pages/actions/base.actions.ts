@@ -14,12 +14,4 @@ export class BaseActions {
   async getElementText(locator: Locator): Promise<string | null> {
     return await locator.textContent();
   }
-
-  // async isElementPresent(locator: Locator): Promise<boolean> {
-  //   return await locator.isVisible();
-  // }
-
-  // protected getByXpath(xpathSelector: string): Locator {
-  //   return this.page.locator('xpath=' + xpathSelector);
-  // }
 }

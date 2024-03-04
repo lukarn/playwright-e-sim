@@ -5,7 +5,7 @@ import { StartPage } from '../pages/start.page';
 
 test.describe('Login tests.', () => {
   // Arrange
-  const appsettings = Appsettings.loadFromFile('appsettings.json');
+  const appsettings = Appsettings.loadFromFile('appsettings.local.json');
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {

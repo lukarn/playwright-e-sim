@@ -16,8 +16,16 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
+      - name: Install ci dependencies
+        run:
+          npm ci
+      - name: Install eslint
+        run:
           npm install eslint --save-dev
+      - name: Install npm dependencies
+        run:
           npm install
+      # run validation
       - name: Run ESLint for validation
         run: npm run lint
       - name: Upload ESLint report

@@ -13,6 +13,7 @@
   "devDependencies": {
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.17",
+    "eslint": "^8.57.0",
     "prettier": "3.2.5"
   }
 }

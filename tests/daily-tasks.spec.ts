@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { Appsettings } from '../appsettings';
-import { LoginPage } from '../pages/login.page';
 import { StartPage } from '../pages/start.page';
 import { WorkPage } from '../pages/work.page';
 import { TrainPage } from '../pages/train.page';
@@ -16,13 +15,6 @@ test.describe('Daily tasks tests.', () => {
 
     // Login to the app
     await page.goto(appsettings.baseUrl);
-
-    const loginPage = new LoginPage(page);
-    await loginPage.loginPageButtonsComponent.clickLoginNavigateButton();
-    await loginPage.loginFormComponent.fillLoginForm(
-      appsettings.login,
-      appsettings.password,
-    );
 
     // Create pages for test cases
     startPage = new StartPage(page);

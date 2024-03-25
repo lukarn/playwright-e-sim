@@ -15,6 +15,6 @@
       "jsx": "react",
       "lib": ["dom", "esnext"]
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "include": ["**/*.ts"],
     "exclude": ["node_modules"]
   }

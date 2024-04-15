@@ -6,8 +6,6 @@ import { TrainPage } from '../pages/train.page';
 
 test.describe('Daily tasks tests.', () => {
   let startPage: StartPage;
-  let workPage: WorkPage;
-  let trainPage: TrainPage;
 
   test.beforeEach(async ({ page }) => {
     // Load env. settings
@@ -15,16 +13,14 @@ test.describe('Daily tasks tests.', () => {
 
     // Login to the app
     await page.goto(appsettings.baseUrl);
-
-    // Create pages for test cases
     startPage = new StartPage(page);
-    workPage = new WorkPage(page);
-    trainPage = new TrainPage(page);
   });
 
-  test('Train.', async () => {
+  test('Train.', async ({ page }) => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickTrainButton();
+
+    const trainPage = new TrainPage(page);
     await trainPage.trainPageButtonsComponent.clickTrainButton();
 
     await expect(
@@ -38,9 +34,11 @@ test.describe('Daily tasks tests.', () => {
     ).toContainText(':');
   });
 
-  test('Work.', async () => {
+  test('Work.', async ({ page }) => {
     // Act
     await startPage.dailyTasksSideMenuComponent.clickWorkButton();
+
+    const workPage = new WorkPage(page);
     await workPage.workPageButtonsComponent.clickWorkButton();
 
     await expect(
